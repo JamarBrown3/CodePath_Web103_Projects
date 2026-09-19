@@ -1,0 +1,146 @@
+:root {
+  --pico-primary: #d6a84d;
+  --pico-primary-hover: #f2c96b;
+  --pico-primary-focus: rgba(214, 168, 77, 0.3);
+  --pico-background-color: #0d0d0f;
+  --pico-card-background-color: rgba(20, 20, 23, 0.92);
+  --pico-card-sectioning-background-color: rgba(20, 20, 23, 0.92);
+  --pico-color: #f1eee6;
+  --pico-muted-color: #c4bfb4;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: #f1eee6;
+  background-color: #0d0d0f;
+  background-image:
+    linear-gradient(rgba(7, 7, 9, 0.65), rgba(7, 7, 9, 0.85)),
+    url("/images/darksouls2_BackgroundImage.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Special background: only the 404 page. */
+body.error-page {
+  background-image:
+    linear-gradient(rgba(7, 7, 9, 0.45), rgba(7, 7, 9, 0.7)),
+    url("/images/404_error_backgroundImage.jpg");
+}
+
+header {
+  background-color: rgba(8, 8, 10, 0.9);
+  border-bottom: 1px solid #5f4a25;
+}
+
+.site-nav {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+  padding: 0.75rem 0;
+}
+
+.brand {
+  color: #f2c96b;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.hero {
+  width: min(1100px, 92%);
+  margin: 3rem auto 2rem;
+  text-align: center;
+}
+
+.hero h1 {
+  color: #f2c96b;
+  margin-bottom: 0.5rem;
+}
+
+.eyebrow {
+  color: #d6a84d;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12rem;
+  text-transform: uppercase;
+}
+
+.weapon-grid {
+  width: min(1100px, 92%);
+  margin: 0 auto 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  gap: 1.25rem;
+}
+
+.weapon-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid #4f432d;
+  background-color: rgba(20, 20, 23, 0.94);
+}
+
+.weapon-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.weapon-card h2 {
+  margin: 1rem 1rem 0.5rem;
+  color: #f2c96b;
+  font-size: 1.35rem;
+}
+
+.weapon-card p {
+  margin: 0.35rem 1rem;
+}
+
+.weapon-card a {
+  margin: auto 1rem 1rem;
+}
+
+.detail-page {
+  width: min(950px, 92%);
+  margin: 3rem auto;
+}
+
+#weapon-detail {
+  display: grid;
+  grid-template-columns: minmax(250px, 1fr) 1fr;
+  gap: 2rem;
+  align-items: start;
+  border: 1px solid #4f432d;
+  background-color: rgba(20, 20, 23, 0.94);
+}
+
+#weapon-detail img {
+  width: 100%;
+  min-height: 380px;
+  object-fit: cover;
+}
+
+#weapon-detail h1 {
+  color: #f2c96b;
+}
+
+.not-found {
+  width: min(650px, 92%);
+  margin: 0 auto;
+  padding-top: 15vh;
+  padding-bottom: 3rem;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  #weapon-detail {
+    grid-template-columns: 1fr;
+  }
+
+  #weapon-detail img {
+    min-height: 260px;
+  }
+}
