@@ -10,7 +10,54 @@ an image and information about its weapon type, damage type, scaling,
 description, and location. The project uses vanilla HTML, CSS, JavaScript,
 Pico CSS, and a Node.js/Express backend.**
 
-Time spent: **[5]** hours spent in total
+Time spent: **5** hours spent in total
+
+## Running the project
+
+From the `dark-souls2-weapons` directory:
+
+```bash
+npm ci --prefix client
+npm ci --prefix server
+npm run build --prefix client
+npm start --prefix server
+```
+
+Open http://localhost:3001. Only Express needs to stay running for this workflow.
+After changing client HTML, CSS, images, or scripts, run
+`npm run build --prefix client` again and refresh the browser.
+After changing server code, restart Express, or use
+`npm run dev --prefix server` to restart it automatically while editing.
+
+### Source files and generated output
+
+`client/` is the single source of truth for frontend code and images.
+Vite builds `client/index.html` and copies `client/public/` into `server/public/`.
+Express serves that generated directory. Do not edit `server/public/` directly:
+the next build replaces it. Generated output is excluded from Git, so a fresh
+clone must run the build before starting Express.
+
+`server/server.js`, `server/routes/`, and `server/data/` contain backend source.
+Unused Vite starter files have been removed. Vite remains the build tool used
+in the course; it is not a frontend framework.
+
+For optional Vite development, run `npm run dev --prefix client` alongside
+Express and use the address Vite prints (usually port 5173). Its `/weapons`
+proxy sends API and weapon-detail requests to Express. Build first, and rebuild
+after changing the detail HTML served by Express. Use port 3001 for final
+testing, including unknown URLs and the custom 404 response.
+
+### Manual checks
+
+- `/`: seven cards, images, title, and styling.
+- `/weapons`: JSON weapon data.
+- Every View Details link: matching weapon fields and image, including its ID.
+- Navigation back to the homepage.
+- `/not-a-real-page` and `/weapons/99999`: custom page with HTTP status 404.
+- Narrow browser window: cards and detail content remain usable.
+
+API text is rendered with `textContent` or DOM text nodes instead of HTML
+interpolation. Failed data requests display a readable message.
 
 ## Required Features
 
@@ -43,9 +90,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented required features:
 
-**Recording will be added before submission.**
-
-Video created with **[QuickTime player on mac os]**.
+Video created with **QuickTime Player on macOS**.
 The video link is here at: https://drive.google.com/file/d/1bMKQ-vpFMAUh2RSK4JbCMZ7kUQ4WtU2V/view?usp=sharing
 
 ## Notes

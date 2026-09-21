@@ -1,11 +1,17 @@
 const renderWeapons = async () => {
   const response = await fetch("/weapons");
+  if (!response.ok) {
+    throw new Error(`Could not load weapons (HTTP ${response.status}).`);
+  }
   const weapons = await response.json();
+  if (!Array.isArray(weapons)) {
+    throw new Error("The server did not return a weapon list.");
+  }
 
   const weaponContent = document.getElementById("weapon-content");
 
   if (!weapons || weapons.length === 0) {
-    weaponContent.innerHTML = "<h2> 😔 No weapons available.</h2>";
+    weaponContent.textContent = "No weapons available.";
     return;
   }
 
@@ -21,16 +27,20 @@ const renderWeapons = async () => {
     title.textContent = weapon.name;
 
     const type = document.createElement("p");
-    type.innerHTML = `<strong>Type:</strong> ${weapon.weaponType}`;
+    const typeLabel = document.createElement("strong");
+    typeLabel.textContent = "Type: ";
+    type.append(typeLabel, weapon.weaponType);
 
     const damage = document.createElement("p");
-    damage.innerHTML = `<strong>Damage:</strong> ${weapon.damage}`;
+    const damageLabel = document.createElement("strong");
+    damageLabel.textContent = "Damage: ";
+    damage.append(damageLabel, weapon.damage);
 
     const description = document.createElement("p");
     description.textContent = weapon.description;
 
     const link = document.createElement("a");
-    link.href = `/weapons/${weapon.id}`;
+    link.href = `/weapons/${encodeURIComponent(weapon.id)}`;
     link.textContent = "View Details";
     link.role = "button";
 
@@ -39,4 +49,8 @@ const renderWeapons = async () => {
   });
 };
 
-renderWeapons();
+renderWeapons().catch((error) => {
+  console.error(error);
+  document.getElementById("weapon-content").textContent =
+    "Unable to load weapons. Check that the server is running, then refresh.";
+});

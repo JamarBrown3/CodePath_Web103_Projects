@@ -1,9 +1,10 @@
 import express from "express";
+import { fileURLToPath } from "node:url";
 import weaponData from "../data/weapons.js";
 
 const router = express.Router();
 
-// get /weaapons: sends all weapon data as a json.
+// GET /weapons: sends all weapon data as JSON.
 
 router.get("/", (req, res) => {
   res.status(200).json(weaponData);
@@ -18,12 +19,12 @@ router.get("/:weaponId", (req, res) => {
   if (!weapon) {
     return res
       .status(404)
-      .sendFile(new URL("../public/404.html", import.meta.url).pathname);
+      .sendFile(fileURLToPath(new URL("../public/404.html", import.meta.url)));
   }
 
   res
     .status(200)
-    .sendFile(new URL("../public/weapon.html", import.meta.url).pathname);
+    .sendFile(fileURLToPath(new URL("../public/weapon.html", import.meta.url)));
 });
 
 export default router;
