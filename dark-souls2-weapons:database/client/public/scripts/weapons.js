@@ -9,6 +9,7 @@ const renderWeapons = async () => {
   }
 
   const weaponContent = document.getElementById("weapon-content");
+  weaponContent.replaceChildren();
 
   if (!weapons || weapons.length === 0) {
     weaponContent.textContent = "No weapons available.";
@@ -18,6 +19,7 @@ const renderWeapons = async () => {
   weapons.forEach((weapon) => {
     const card = document.createElement("article");
     card.className = "weapon-card";
+    card.dataset.searchName = weapon.name.toLowerCase();
 
     const image = document.createElement("img");
     image.src = weapon.image;
@@ -50,15 +52,14 @@ const renderWeapons = async () => {
 
   const searchInput = document.getElementById("weapon-search");
   const searchStatus = document.getElementById("search-status");
-  const cards = weaponContent.querySelectorAll(".weapon-card");
 
   const filterWeapons = () => {
     const searchText = searchInput.value.trim().toLowerCase();
+    const cards = weaponContent.querySelectorAll(".weapon-card");
     let visibleCount = 0;
 
-    cards.forEach((card, index) => {
-      const weaponName = weapons[index].name.toLowerCase();
-      const matches = weaponName.includes(searchText);
+    cards.forEach((card) => {
+      const matches = card.dataset.searchName.includes(searchText);
 
       card.style.display = matches ? "" : "none";
       if (matches) {
@@ -68,11 +69,11 @@ const renderWeapons = async () => {
     searchStatus.textContent =
       visibleCount === 0
         ? "No weapons match your search."
-        : `Showing ${visibleCount} of ${weapons.length} weapons.`;
+        : `Showing ${visibleCount} of ${cards.length} weapons.`;
   };
 
   searchInput.disabled = false;
-  searchInput.addEventListener("input", filterWeapons);
+  searchInput.oninput = filterWeapons;
   filterWeapons();
 };
 

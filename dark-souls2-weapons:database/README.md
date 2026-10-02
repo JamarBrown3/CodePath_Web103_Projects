@@ -59,8 +59,9 @@ returns them as JSON. The frontend fetches those records and displays
 weapon cards.
 
 The detail route also checks the database to determine whether a weapon
-exists before serving its detail page. Search runs in the browser against
-the weapon records retrieved from the API.
+exists before serving its detail page. The page fetches just that record
+from GET /weapons/:weaponId/data. Search reads the searchable name stored
+on each card, so rearranging cards does not mismatch names and results.
 
 Challenges encountered included:
 
@@ -77,10 +78,45 @@ Connection settings are stored in a private server/.env file excluded
 from Git. Frontend source files are maintained in client/, while
 server/public/ contains generated build output.
 
-The current reset script drops and recreates the weapons table. The
-current npm start script runs that reset before starting Express, so
-starting it through that command replaces existing weapon records with
-the sample data.
+Starting the server does not reset or seed the database. The explicit
+reset command replaces the weapons table with sample data inside a
+transaction, awaiting each insert in order. A failed reset rolls back.
+
+## Running and testing
+
+Keep the existing private connection settings in server/.env. Never
+commit this file. The server resolves it relative to its config files,
+independently of the terminal's working directory.
+
+1. Build the frontend from client/: run `npm ci`, then `npm run build`.
+2. From server/, run `npm ci`.
+3. **Existing Unit 2 database:** run `npm run migrate` once before starting
+   this updated version. It renames weapontype to weapon_type without
+   deleting records or changing IDs. It is safe to rerun.
+4. Run `npm test` from server/. Tests use fake database responses, do not
+   load .env files, and never connect to Render. Build the frontend first
+   so the HTTP tests can verify the generated HTML and assets.
+5. Run `npm start` (or `npm run dev` for automatic restarts).
+6. Open http://localhost:3001/ and test search, detail links, and 404s.
+
+**New empty database only:** run `npm run reset` instead of migration to
+create and seed the table. **Warning: reset deletes all existing weapons
+and replaces them with sample data. Do not use it for a routine startup.**
+
+The database uses weapon_type; the controller explicitly maps it to
+weaponType for the frontend. No duplicate field is returned.
+
+Endpoints:
+
+- GET /weapons — array of records as JSON.
+- GET /weapons/:weaponId/data — one record as JSON, or JSON 404.
+- GET /weapons/:weaponId — detail HTML, or the custom 404 page.
+- Unexpected database read failures return HTTP 500.
+
+The automated tests cover routes, error responses, search after card
+reordering, detail fetching, and seed commit/rollback behavior. A live
+Render connection and the migration still need to be verified locally
+using your private settings; mock tests do not validate the live database.
 
 I used AI assistance for explanations, debugging guidance, and code
 examples while adapting and testing the project.

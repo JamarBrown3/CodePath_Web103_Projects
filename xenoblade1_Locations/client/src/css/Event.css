@@ -1,0 +1,126 @@
+.events-page {
+  width: 100%;
+  min-width: 0;
+}
+
+.events-grid,
+.location-events > section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 24px;
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: stretch;
+}
+
+#root .event-information {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  background: #122530;
+  color: #f3f6f8;
+  border: 1px solid #46616f;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  text-align: left;
+}
+
+.event-information .event-image {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.event-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 14px;
+  padding: 22px;
+  overflow-wrap: anywhere;
+}
+
+#root .event-content h3 {
+  color: #fff;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.event-content p {
+  margin: 0;
+  color: #dce6eb;
+  line-height: 1.6;
+}
+
+.event-content .event-location {
+  color: #9fdae1;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.event-content .event-date {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #46616f;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.event-date i {
+  margin-right: 6px;
+}
+
+@media (max-width: 600px) {
+  .events-grid,
+  .location-events > section {
+    padding: 16px;
+    gap: 16px;
+  }
+}
+
+/* ai css code to format the countdown via claud ai free tier */
+
+/* Filter dropdown */
+.events-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.events-filter select {
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #999;
+  font-size: 1rem;
+}
+
+/* Countdown */
+.countdown {
+  margin-top: 0.5rem;
+  font-weight: 600;
+  color: #1a7f37;
+}
+
+/* Passed events */
+.event-information.past {
+  opacity: 0.55;
+  filter: grayscale(0.8);
+}
+
+.event-information.past h3 {
+  text-decoration: line-through;
+}
+
+.countdown-past {
+  color: #b42318;
+  font-style: italic;
+}

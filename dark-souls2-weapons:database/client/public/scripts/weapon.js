@@ -1,21 +1,18 @@
 const renderWeapon = async () => {
-  const requestedID = Number(window.location.pathname.split("/").pop());
+  const requestedID = window.location.pathname.split("/").filter(Boolean).pop();
+  const weaponDetail = document.getElementById("weapon-detail");
 
-  const response = await fetch("/weapons");
+  const response = await fetch(`/weapons/${encodeURIComponent(requestedID)}/data`);
+  if (response.status === 404) {
+    weaponDetail.textContent = "Weapon not found.";
+    return;
+  }
   if (!response.ok) {
     throw new Error(`Could not load weapons (HTTP ${response.status}).`);
   }
-  const weapons = await response.json();
-  if (!Array.isArray(weapons)) {
-    throw new Error("The server did not return a weapon list.");
-  }
-
-  const weapon = weapons.find((item) => item.id === requestedID);
-  const weaponDetail = document.getElementById("weapon-detail");
-
-  if (!weapon) {
-    weaponDetail.textContent = "Weapon not found.";
-    return;
+  const weapon = await response.json();
+  if (!weapon || Array.isArray(weapon) || typeof weapon !== "object") {
+    throw new Error("The server did not return a weapon record.");
   }
 
   document.getElementById("image").src = weapon.image;

@@ -1,0 +1,63 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  padding: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  height: auto;
+  padding: 20px 28px;
+  background: rgba(10, 20, 30, 0.92);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+#root .main-header h1 {
+  font-family: "Rock Salt", cursive;
+  font-size: clamp(1rem, 1.8vw, 1.65rem);
+  line-height: 1.7;
+  margin: 0;
+  color: #ff7078;
+  text-shadow:
+    2px 2px 3px #000,
+    0 0 12px rgba(255, 70, 80, 0.3);
+}
+
+.header-buttons {
+  display: flex;
+  flex-shrink: 0;
+  gap: 12px;
+  width: auto;
+}
+
+#root .header-buttons a[role="button"] {
+  margin: 0;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  background: #234b60;
+  border: 1px solid #aecad8;
+  color: white;
+}
+
+#root .header-buttons a[role="button"]:hover {
+  background: #326980;
+}
+
+@media (max-width: 700px) {
+  .main-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
