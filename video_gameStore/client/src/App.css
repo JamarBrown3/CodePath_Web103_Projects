@@ -1,0 +1,343 @@
+.app {
+  background: url("./assets/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-bottom: 50px;
+}
+
+.games-page {
+  width: 100%;
+  padding: 24px;
+}
+
+.games-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: hotpink;
+  text-shadow: 4px 7px 4px black;
+  text-align: center;
+  text-underline-position: below;
+}
+.game-card a {
+  color: #80e5ff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.game-card a:hover {
+  color: #ffffff;
+}
+
+.game-card a:focus-visible {
+  outline: 2px solid #80e5ff;
+  outline-offset: 4px;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 320px));
+  justify-content: center;
+  align-items: stretch;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 20px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(12, 16, 24, 0.95);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.game-card img {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.game-card h2 {
+  font-size: 1.2rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.game-card p {
+  font-size: 0.95rem;
+}
+
+.game-card footer {
+  margin: auto 0 0;
+  padding: 20px 0 0;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: transparent;
+}
+
+/* Center this page without changing the saved-games page. */
+.customize-page {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* Form on the left, live preview on the right. */
+.customize-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+  margin-top: 24px;
+}
+
+/* Dark panels keep the form readable over the site's background. */
+.customize-layout form,
+.game-preview {
+  min-width: 0;
+  padding: 24px;
+  border-radius: 24px;
+  background-color: #111820;
+  border: 1px solid rgba(128, 229, 255, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* The fieldset lets React disable every form control while saving. */
+.customize-layout fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.customize-layout label {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.customize-layout input,
+.customize-layout select {
+  width: 100%;
+  background-color: #202c3a;
+  color: #ffffff;
+  border-color: #61758a;
+}
+
+.customize-layout input::placeholder {
+  color: #b8c5d1;
+}
+
+.customize-layout input:focus,
+.customize-layout select:focus {
+  border-color: #80e5ff;
+}
+
+/* Color-specific background images are supplied by the JSX. */
+.game-preview {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #ffffff;
+}
+
+.game-preview h2 {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+/* Uniform cover area without cropping the game artwork. */
+.game-preview img {
+  display: block;
+  width: 100%;
+  height: 280px;
+  object-fit: contain;
+  margin: 20px 0;
+  border-radius: 12px;
+}
+
+.preview-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 200px;
+  padding: 20px;
+  border: 2px dashed #b8c5d1;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.customize-page .game-total {
+  color: #80e5ff;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.customize-page .form-error {
+  padding: 12px;
+  border-left: 4px solid #ff8a8a;
+  border-radius: 8px;
+  background-color: #412029;
+  color: #ffe0e0;
+}
+
+.customize-layout button[type="submit"] {
+  background-color: #173b50;
+  color: #ffffff;
+}
+
+.customize-layout button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Stack the form and preview on smaller screens. */
+@media (max-width: 700px) {
+  .customize-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .customize-page {
+    padding: 16px;
+  }
+}
+
+.customize-page .delete-game-button {
+  background-color: #8b2030;
+  color: white;
+}
+
+.customize-page .delete-game-button:hover {
+  background-color: #a9283b;
+}
+
+/* Saved game details: keep the selected theme visible around the cover. */
+.game-details-page {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+#root .game-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin: 0;
+  padding: clamp(20px, 4vw, 40px);
+  border-radius: 24px;
+  background-color: #111820;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  color: white;
+}
+
+.game-details > img {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: 360px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.details-information {
+  width: 100%;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
+}
+
+#root .game-details h1 {
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  line-height: 1.2;
+  margin-bottom: 20px;
+  overflow-wrap: anywhere;
+}
+
+.game-details-page a {
+  color: #80e5ff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.game-details-page a:hover {
+  color: white;
+}
+
+.game-details-page a:focus-visible {
+  outline: 2px solid #80e5ff;
+  outline-offset: 5px;
+}
+
+.details-back-link {
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.game-details .details-price {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #80e5ff;
+}
+
+@media (max-width: 500px) {
+  .game-details-page {
+    padding: 16px;
+  }
+  .game-details > img {
+    height: 280px;
+  }
+}
+
+.loading {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #21c658;
+  font-size: 2em;
+  background: rgba(12, 16, 24, 0.95);
+  padding: 20px;
+  border-radius: 16px;
+}
+
+/* A solid panel makes both colors readable over the busy wallpaper. */
+.customize-intro {
+  padding: 20px 24px;
+  border-radius: 20px;
+  background: rgba(12, 16, 24, 0.96);
+  text-align: center;
+}
+
+#root .customize-intro h1 {
+  color: #ff80c5;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+#root .customize-intro p {
+  color: #80e5ff;
+  margin-bottom: 0;
+}

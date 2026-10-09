@@ -35,59 +35,20 @@
   --form-element-active-background-color: white;
 }
 
-#root h1,
-#root h2,
-#root h3 {
+:where(.app) :is(h1, h2, h3) {
   text-transform: uppercase;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
-#root h1 {
-  font-family:
-    Rock Salt,
-    cursive;
-  font-size: 3em;
+.locations-page > h1,
+.app > main > h1 {
+  font-family: "Rock Salt", cursive;
   font-weight: bold;
   text-shadow: 3px 3px 4px black;
 }
 
-#root h2 {
-  font-family:
-    Nunito Sans,
-    Verdana,
-    sans-serif;
+.events-page > h2,
+.location-info > h2 {
   font-size: 2em;
   font-weight: 800;
-}
-
-#root h3 {
-  font-family:
-    Nunito Sans,
-    Verdana,
-    sans-serif;
-  font-size: 1.3em;
-  font-weight: 800;
-}
-
-#root main {
-  display: flex;
-  justify-content: center;
-}
-
-#root [role="button"] {
-  text-transform: uppercase;
-  font-weight: 900;
-  font-size: 1.5em;
-  border: 2px solid white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#root article {
-  padding: 0px;
-}
-
-#root select {
-  width: 400px;
 }

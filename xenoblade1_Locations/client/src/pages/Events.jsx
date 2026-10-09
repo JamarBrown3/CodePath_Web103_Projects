@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import EventsAPI from "../services/EventsAPI";
-import LocationsAPI from "../services/LocationsAPI";
 import Event from "../components/Event";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
-  const [locations, setLocations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState("all");
@@ -15,14 +13,10 @@ const Events = () => {
 
     const fetchEvents = async () => {
       try {
-        const [data, locationData] = await Promise.all([
-          EventsAPI.getAllEvents(),
-          LocationsAPI.getAllLocations(),
-        ]);
+        const data = await EventsAPI.getAllEvents();
 
         if (!ignore) {
           setEvents(data);
-          setLocations(locationData);
         }
       } catch (error) {
         if (!ignore) {
@@ -41,10 +35,18 @@ const Events = () => {
     };
   }, []);
 
-  // Match by database ID, not array position.
-  const locationsById = new Map(
-    locations.map((location) => [location.id, location]),
-  );
+  // Only derive dropdown options when the fetched events change.
+  // Each event already contains its location details from the API's SQL join.
+  const locations = useMemo(() => {
+    const seen = new Set();
+    return events.reduce((options, event) => {
+      if (!seen.has(event.location_id)) {
+        seen.add(event.location_id);
+        options.push({ id: event.location_id, name: event.location_name });
+      }
+      return options;
+    }, []).sort((a, b) => a.id - b.id);
+  }, [events]);
 
   // filtering for the All events page
   const filteredEvents =
@@ -93,8 +95,8 @@ const Events = () => {
             title={event.title}
             description={event.description}
             starts_at={event.starts_at}
-            image={locationsById.get(event.location_id)?.image}
-            locationName={locationsById.get(event.location_id)?.name}
+            image={event.location_image}
+            locationName={event.location_name}
           />
         ))}
       </div>

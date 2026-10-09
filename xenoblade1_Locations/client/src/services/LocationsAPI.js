@@ -1,5 +1,3 @@
-// Setup placeholder only. Replace this with a real API request during the lab.
-// An empty list is intentional: no database is queried and no sample data is faked.
 const getAllLocations = async () => {
   const response = await fetch("/api/locations");
   if (!response.ok) {

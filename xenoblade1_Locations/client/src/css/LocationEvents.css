@@ -2,7 +2,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  flex-wrap: no-wrap;
 }
 
 .location-events header {
@@ -10,6 +9,8 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
   column-gap: 10px;
+  padding: 50px;
+  align-items: center;
 }
 
 .location-image img {
@@ -22,17 +23,4 @@
   color: white;
   font-size: 0.8em;
   margin-bottom: 0px;
-}
-
-.location-events main {
-  text-align: center;
-  padding: 30px;
-  margin: 30px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.location-events main i {
-  margin-right: 10px;
 }

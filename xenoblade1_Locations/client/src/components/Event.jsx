@@ -2,28 +2,28 @@ import React from "react";
 import "../css/Event.css";
 import Countdown from "./Countdown";
 
-const Event = (props) => {
-  const eventDate = new Date(props.starts_at);
+const Event = ({ title, description, starts_at, image, locationName }) => {
+  const eventDate = new Date(starts_at);
   const validDate = !Number.isNaN(eventDate.getTime());
   const isPast = validDate && eventDate.getTime() < Date.now();
 
   return (
     <article className={`event-information${isPast ? " past" : ""}`}>
-      {props.image && (
+      {image && (
         <img
           className="event-image"
-          src={props.image}
-          alt={props.locationName || "Event location"}
+          src={image}
+          alt={locationName || "Event location"}
           loading="lazy"
         />
       )}
       <div className="event-content">
-        {props.locationName && (
-          <p className="event-location">{props.locationName}</p>
+        {locationName && (
+          <p className="event-location">{locationName}</p>
         )}
-        <h3>{props.title}</h3>
+        <h3>{title}</h3>
 
-        <p className="event-description">{props.description}</p>
+        <p className="event-description">{description}</p>
 
         <p className="event-date">
           <i
@@ -39,7 +39,7 @@ const Event = (props) => {
           )}
         </p>
 
-        {validDate && <Countdown startsAt={props.starts_at} />}
+        {validDate && <Countdown startsAt={starts_at} />}
       </div>
     </article>
   );

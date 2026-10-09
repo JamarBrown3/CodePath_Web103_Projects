@@ -3,7 +3,11 @@ import { pool } from "../config/database.js";
 const getEvents = async (req, res) => {
   try {
     const results = await pool.query(
-      `SELECT id, location_id, title, description, starts_at FROM events ORDER BY starts_at, id`,
+      `SELECT e.id, e.location_id, e.title, e.description, e.starts_at,
+              l.name AS location_name, l.image AS location_image
+       FROM events AS e
+       JOIN locations AS l ON l.id = e.location_id
+       ORDER BY e.starts_at, e.id`,
     );
     res.status(200).json(results.rows);
   } catch (error) {
