@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import ViewGames from "./pages/ViewGames";
 import EditGame from "./pages/EditGame";
@@ -22,16 +22,12 @@ const App = () => {
       element: <ViewGames />,
     },
     {
-      path: "/customgames",
-      element: <Navigate to="/games" replace />,
-    },
-    {
       path: "/games/:id",
       element: <GameDetails />,
     },
     {
       path: "/edit/:id",
-      element: <EditGame title="Games | Edit Games" />,
+      element: <EditGame />,
     },
     {
       path: "*",

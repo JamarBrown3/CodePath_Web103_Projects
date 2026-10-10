@@ -24,6 +24,12 @@ export const calculatePrice = (game) => {
   return 2000 + genrePrices[game.genre] + modePrices[game.player_mode];
 };
 
+// Shared by the early UI warning and backend validation.
+export const getCompatibilityError = (game) =>
+  game.platform === "Handheld" && game.player_mode === "Online"
+    ? "Our handheld package does not support online multiplayer."
+    : "";
+
 // Return an error message, or an empty string when everything is valid.
 export const validateGame = (game) => {
   if (!game || typeof game !== "object" || Array.isArray(game)) {
@@ -56,10 +62,5 @@ export const validateGame = (game) => {
     }
   }
 
-  // Fictional compatibility rule for this store.
-  if (game.platform === "Handheld" && game.player_mode === "Online") {
-    return "Our handheld package does not support online multiplayer.";
-  }
-
-  return "";
+  return getCompatibilityError(game);
 };

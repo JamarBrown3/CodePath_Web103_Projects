@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import GamesAPI from "../services/GamesAPI";
-import React from "react";
+import DeleteGameButton from "../components/DeleteGameButton";
 import "../App.css";
 
-//importing themese to make sure the games background changes based on their database color
+// Use each game's saved color for its card background.
 import themeBackgrounds from "../data/themeBackgrounds";
 
 const ViewGames = () => {
@@ -39,23 +39,10 @@ const ViewGames = () => {
     };
   }, []);
 
-  // Delete a game straight from the list view.
-  // Ask first, call the API, then remove the card from state so the list
-  // updates without reloading the page.
+  // The reusable confirmation component handles pending/error feedback.
   const handleDelete = async (game) => {
-    const confirmed = window.confirm(
-      `Delete "${game.title}"? This cannot be undone.`,
-    );
-
-    if (!confirmed) return;
-
-    try {
-      await GamesAPI.deleteGame(game.id);
-      setGames((previous) => previous.filter((item) => item.id !== game.id));
-    } catch (error) {
-      console.error("Error deleting game:", error);
-      window.alert("Unable to delete the game. Please try again.");
-    }
+    await GamesAPI.deleteGame(game.id);
+    setGames((previous) => previous.filter((item) => item.id !== game.id));
   };
 
   if (loading) {
@@ -69,19 +56,13 @@ const ViewGames = () => {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <p role="alert">{error}</p>;
   }
 
   return (
     <section className="games-page">
       <h1 className="games-title">Your Custom Games</h1>
-      {/* this code uses the short circuit evaluation to conditionally render the
-      list of games if there are any */}
-      {loading && <p>Loading games...</p>}
-      {error && <p role="alert">{error}</p>}
-      {!loading && !error && games.length === 0 && (
-        <p>No games saved yet. Create your first one!</p>
-      )}
+      {games.length === 0 && <p>No games saved yet. Create your first one!</p>}
 
       {/* this is for the games to be displayed as a grid with the title and image based on game id*/}
       <div className="games-grid">
@@ -107,13 +88,10 @@ const ViewGames = () => {
             <footer>
               <Link to={`/games/${game.id}`}>View Details</Link>
               <Link to={`/edit/${game.id}`}>Edit</Link>
-              <button
-                type="button"
-                className="delete-game-button"
-                onClick={() => handleDelete(game)}
-              >
-                Delete
-              </button>
+              <DeleteGameButton
+                title={game.title}
+                onDelete={() => handleDelete(game)}
+              />
             </footer>
           </article>
         ))}

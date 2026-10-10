@@ -322,6 +322,18 @@
   border-radius: 16px;
 }
 
+.delete-game-control { min-width: 0; }
+.delete-confirmation {
+  padding: 16px;
+  border: 1px solid #ff8a8a;
+  border-radius: 12px;
+  background: #291b24;
+  color: white;
+  overflow-wrap: anywhere;
+}
+.delete-game-control .delete-game-button { background-color: #8b2030; color: white; }
+.delete-game-control button:disabled { opacity: 0.6; cursor: not-allowed; }
+
 /* A solid panel makes both colors readable over the busy wallpaper. */
 .customize-intro {
   padding: 20px 24px;

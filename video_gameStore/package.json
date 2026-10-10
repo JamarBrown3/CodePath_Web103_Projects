@@ -2,6 +2,8 @@
   "name": "boltbucket",
   "type": "module",
   "scripts": {
+    "test": "node --test tests/*.test.js",
+    "test:ui": "node tests/ui-server.mjs",
     "dev": "concurrently \"cd client && vite\" \"cd server && nodemon server\"",
     "start": "cd server && node server",
     "build": "cd client && vite build",
